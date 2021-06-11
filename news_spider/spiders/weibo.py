@@ -1,0 +1,28 @@
+import scrapy
+
+from news_spider.items import WeiboItem
+from news_spider.utils.common import parse_list_item
+
+
+class WeiboSpider(scrapy.Spider):
+    name = 'weibo'
+    allowed_domains = ['https://s.weibo.com']
+    start_urls = ['https://s.weibo.com/top/summary?cate=realtimehot/']
+
+    def parse(self, response):
+        tbody = response.xpath("//div[@id='pl_top_realtimehot']/table/tbody")
+        tr_list = tbody.xpath("./tr")
+        for tr in tr_list:
+            item = WeiboItem()
+            td_list = tr.xpath("./td")
+            if len(td_list) <= 1:
+                continue
+            td_info = td_list[1]
+            td_href = parse_list_item(td_info.xpath("./a/@href").extract())
+            td_title = parse_list_item(td_info.xpath("./a/text()").extract())
+            hot_val = parse_list_item(td_info.xpath("./span/text()").extract())
+            item["url"] = td_href
+            item["title"] = td_title
+            item["hot_val"] = hot_val
+            yield item
+
