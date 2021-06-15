@@ -6,6 +6,8 @@
 
 # useful for handling different item types with a single interface
 import logging
+
+import pymysql
 from scrapy.exceptions import DropItem
 
 
@@ -28,8 +30,19 @@ def validate_item(item):
 
 
 class ValidateItemsPipeline(object):
+    def __init__(self):
+        self.conn = pymysql.connect(host='localhost', user='root',
+                                    passwd='123456', db='akali', charset='utf8')
+        self.cur = self.conn.cursor()
+
     def process_item(self, item, spider):
         if validate_item(item):
             return item
         else:
             DropItem()
+        title = item.get("title", "")
+        url = item.get("url", "")
+        hot_val = item.get("hot_val", "")
+        sql = "insert into news(title, url, hot_val) VALUES (%s, %s, %s)"
+        self.cur.execute(sql, (title, url, hot_val))
+        self.conn.commit()

@@ -7,19 +7,19 @@ import scrapy
 from scrapy import Item, Field
 
 
-class NewsSpiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+class NewsSpiderBaseItem(scrapy.Item):
+    title = Field()
+    url = Field()
+    hot_val = Field()
+
+
+class BaiduTopItem(NewsSpiderBaseItem):
     pass
 
 
-class BaiduTopItem(Item):
-    title = Field()
-    url = Field()
-    hot_val = Field()
+class WeiboItem(NewsSpiderBaseItem):
+    pass
 
 
-class WeiboItem(Item):
-    title = Field()
-    url = Field()
-    hot_val = Field()
+class ZhihuItem(NewsSpiderBaseItem):
+    pass
