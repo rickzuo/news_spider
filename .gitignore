@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 news_spider/private_settings.py
+.idea/
