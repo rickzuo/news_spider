@@ -1,14 +1,17 @@
+from urllib.parse import unquote
+
 import scrapy
 from lxml import etree
 
 from news_spider.items import BaiduTopItem
-from news_spider.utils.common import parse_list_item
+from news_spider.utils.common import parse_list_item, get_category_by_name
 
 
 class BaiduHotSpider(scrapy.Spider):
-    name = 'baidu_hot'
+    name = 'baidu'
     allowed_domains = ['http://top.baidu.com/buzz?b=1']
     start_urls = ['http://top.baidu.com/buzz?b=1/']
+    category_id = get_category_by_name(name)
 
     def parse(self, response):
         text = response.text
@@ -29,6 +32,9 @@ class BaiduHotSpider(scrapy.Spider):
 
             td_last = tr.xpath('./td[@class="last"]/span/text()')
             item["title"] = parse_list_item(title)
-            item["url"] = parse_list_item(tc_href)
+            href = parse_list_item(tc_href)
+            item["url"] = unquote(href,"GBK")
             item["hot_val"] = parse_list_item(td_last)
+            item["category_id"] = self.category_id
+
             yield item

@@ -4,13 +4,14 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from scrapy import Item, Field
+from scrapy import Field
 
 
 class NewsSpiderBaseItem(scrapy.Item):
     title = Field()
     url = Field()
     hot_val = Field()
+    category_id = Field()
 
 
 class BaiduTopItem(NewsSpiderBaseItem):

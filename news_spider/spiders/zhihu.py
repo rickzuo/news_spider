@@ -4,12 +4,14 @@ import re
 import scrapy
 
 from news_spider.items import ZhihuItem
+from news_spider.utils.common import get_category_by_name
 
 
 class ZhihuSpider(scrapy.Spider):
     name = 'zhihu'
     allowed_domains = ['www.zhihu.com']
     start_urls = ['https://www.zhihu.com/billboard/']
+    category_id = get_category_by_name(name)
 
     def parse(self, response):
         js_list = response.xpath("//script[@id='js-initialData']")
@@ -35,6 +37,7 @@ class ZhihuSpider(scrapy.Spider):
             item["title"] = title
             item["hot_val"] = hot_val
             item["url"] = url
+            item["category_id"] = self.category_id
 
             yield item
 
