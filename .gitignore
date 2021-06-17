@@ -130,3 +130,6 @@ dmypy.json
 
 news_spider/private_settings.py
 .idea/
+vens/*
+logs/*
+!logs/.gitkeep

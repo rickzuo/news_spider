@@ -6,6 +6,8 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+from datetime import datetime
+
 from news_spider import private_settings
 
 BOT_NAME = 'news_spider'
@@ -99,4 +101,10 @@ MYSQL_DB_PASSWORD = private_settings.MYSQL_DB_PASSWORD
 
 COMMANDS_MODULE  = 'news_spider.utils'   # 自己的爬虫名称
 
-FEED_EXPORT_ENCODING = 'GB2312'
+# 文件及路径，log目录需要先建好
+today = datetime.now()
+log_file_path = "logs/scrapy_{}_{}_{}.log".format(today.year, today.month, today.day)
+
+# 日志输出
+LOG_LEVEL = 'DEBUG'
+LOG_FILE = log_file_path
