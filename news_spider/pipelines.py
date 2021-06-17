@@ -9,6 +9,7 @@ import logging
 from datetime import datetime
 
 import pymysql
+from pymysql.cursors import DictCursor
 from scrapy.exceptions import DropItem
 
 from news_spider import settings
@@ -47,29 +48,31 @@ class MysqlDbPipeline(object):
                                     passwd=settings.MYSQL_DB_PASSWORD,
                                     db=settings.MYSQL_DB_NAME
                                     , charset='utf8')
-        self.cur = self.conn.cursor()
+        self.cur = self.conn.cursor(DictCursor)
+        self.tb_news_name = "news_news"
 
     def get_by_title(self, title):
-        sql = "select id from news_news where title = %s "
+        sql = f"select * from {self.tb_news_name} where title = %s "
         self.cur.execute(sql, (title,))
-        exist = self.cur.fetchone()
-        return exist
+        return self.cur.fetchone()
 
     def update_or_create(self, title, url, hot_val, category_id):
         instance = self.get_by_title(title)
         if instance:
+            if instance["hot_val"] == hot_val and instance["url"] == url:
+                return
             self.update(title, url,hot_val)
         else:
             self.create(title, url, hot_val, category_id)
 
     def update(self, title, url, hot_val):
-        sql = "update  news_news set url = %s,hot_val = %s,updated_date = %s where title = %s "
+        sql = f"update {self.tb_news_name} set url = %s,hot_val = %s,updated_date = %s where title = %s "
         updated_date = datetime.now()
         self.cur.execute(sql, (url, hot_val, updated_date, title))
         self.conn.commit()
 
     def create(self, title, url, hot_val, category_id):
-        sql = "insert into news_news(title, url, hot_val,created_date,updated_date,category_id) " \
+        sql = f"insert into {self.tb_news_name}(title, url, hot_val,created_date,updated_date,category_id) " \
               "VALUES (%s, %s, %s,%s,%s,%s)"
         created_date = datetime.now()
         updated_date = datetime.now()
