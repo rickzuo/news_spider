@@ -6,7 +6,7 @@
 
 def parse_list_item(data):
     if len(data) == 0:
-        return data
+        return ""
     return data[0]
 
 def get_category_by_name(name):

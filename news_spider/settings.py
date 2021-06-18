@@ -107,4 +107,5 @@ log_file_path = "logs/scrapy_{}_{}_{}.log".format(today.year, today.month, today
 
 # 日志输出
 LOG_LEVEL = 'DEBUG'
-LOG_FILE = log_file_path
+if not private_settings.SCRAPYD_DEBUG:
+    LOG_FILE = log_file_path

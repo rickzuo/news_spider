@@ -21,3 +21,9 @@
 2.测试是否成功
 - curl http://127.0.0.1:6800/listversions.json?project=news_spider
 - curl http://localhost:6800/schedule.json -d project=default -d spider=baidu  
+
+3.部署scrapydweb
+- 当前目录直接运行命令scrapydweb，根目录会生成这个配置scrapydweb_settings_v10.py
+- supervisord -c supervisor.conf
+- supervisorctl -c supervisor.conf
+- 访问http://127.0.0.1:5000
