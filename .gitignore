@@ -134,3 +134,4 @@ vens/*
 logs/*
 !logs/.gitkeep
 dbs/*
+scrapydweb_settings_v10.py
