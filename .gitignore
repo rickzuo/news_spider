@@ -133,3 +133,4 @@ news_spider/private_settings.py
 vens/*
 logs/*
 !logs/.gitkeep
+dbs/*
