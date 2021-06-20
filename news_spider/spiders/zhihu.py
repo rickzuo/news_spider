@@ -35,7 +35,7 @@ class ZhihuSpider(scrapy.Spider):
             url = target["link"]["url"]
 
             item["title"] = title
-            item["hot_val"] = hot_val
+            item["hot_val"] = hot_val.replace(" ","")
             item["url"] = url
             item["category_id"] = self.category_id
 

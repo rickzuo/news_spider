@@ -2,3 +2,4 @@ Scrapy==2.5.0
 pymysql==1.0.2
 scrapyd==1.2.1
 scrapydweb==1.4.0
+requests

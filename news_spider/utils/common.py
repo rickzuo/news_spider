@@ -7,7 +7,7 @@
 def parse_list_item(data):
     if len(data) == 0:
         return ""
-    return data[0]
+    return data[0].strip()
 
 def get_category_by_name(name):
     if name == "baidu":
