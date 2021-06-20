@@ -6,7 +6,7 @@
 
 # useful for handling different item types with a single interface
 import logging
-from datetime import datetime
+import datetime
 
 import pymysql
 from pymysql.cursors import DictCursor
@@ -52,31 +52,34 @@ class MysqlDbPipeline(object):
         self.tb_news_name = "news_news"
 
     def get_by_title(self, title):
-        sql = f"select * from {self.tb_news_name} where title = %s "
-        self.cur.execute(sql, (title,))
+        today = datetime.date.today()
+        sql = f"select * from {self.tb_news_name} where title = %s and happened_at = %s"
+        self.cur.execute(sql, (title, today))
         return self.cur.fetchone()
 
-    def update_or_create(self, title, url, hot_val, category_id,rank):
+    def update_or_create(self, title, url, hot_val, category_id, rank):
         instance = self.get_by_title(title)
         if instance:
             if instance["hot_val"] == hot_val and instance["url"] == url:
                 return
-            self.update(title, url,hot_val,rank)
+            self.update(title, url, hot_val, rank)
         else:
-            self.create(title, url, hot_val, category_id,rank)
+            self.create(title, url, hot_val, category_id, rank)
 
-    def update(self, title, url, hot_val,rank):
-        sql = f"update {self.tb_news_name} set url = %s,hot_val = %s,updated_date = %s,rank = %s where title = %s "
-        updated_date = datetime.now()
-        self.cur.execute(sql, (url, hot_val, updated_date,rank, title))
+    def update(self, title, url, hot_val, rank):
+        sql = f"update {self.tb_news_name} set url = %s,hot_val = %s,updated_date = %s,rank = %s where title = %s and happened_at = %s "
+        updated_date = datetime.datetime.now()
+        today = datetime.date.today()
+        self.cur.execute(sql, (url, hot_val, updated_date, rank, title, today))
         self.conn.commit()
 
-    def create(self, title, url, hot_val, category_id,rank):
-        sql = f"insert into {self.tb_news_name}(title, url, hot_val,created_date,updated_date,category_id,rank) " \
-              "VALUES (%s, %s, %s,%s,%s,%s)"
-        created_date = datetime.now()
-        updated_date = datetime.now()
-        self.cur.execute(sql, (title, url, hot_val, created_date, updated_date, category_id,rank))
+    def create(self, title, url, hot_val, category_id, rank):
+        sql = f"insert into {self.tb_news_name}(title, url, hot_val,created_date,updated_date,category_id,rank,happened_at) " \
+              "VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
+        created_date = datetime.datetime.now()
+        updated_date = datetime.datetime.now()
+        today = datetime.date.today()
+        self.cur.execute(sql, (title, url, hot_val, created_date, updated_date, category_id, rank, today))
         self.conn.commit()
 
     def process_item(self, item, spider):
@@ -87,4 +90,4 @@ class MysqlDbPipeline(object):
         hot_val = item.get("hot_val", "")
         rank = item.get("rank", 1)
         category_id = item.get("category_id", 1)
-        self.update_or_create(title, url, hot_val, category_id,rank)
+        self.update_or_create(title, url, hot_val, category_id, rank)
