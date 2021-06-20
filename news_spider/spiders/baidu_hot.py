@@ -18,7 +18,7 @@ class BaiduHotSpider(scrapy.Spider):
         tree = etree.HTML(text)
         table = tree.xpath('//table[@class="list-table"]')[0]
         tr_list = table.xpath('//tr')
-        for tr in tr_list:
+        for index,tr in enumerate(tr_list):
             item = BaiduTopItem()
             td_list = tr.xpath('./td[@class="keyword"]')
             if not td_list:
@@ -36,5 +36,5 @@ class BaiduHotSpider(scrapy.Spider):
             item["url"] = unquote(href,"GBK")
             item["hot_val"] = parse_list_item(td_last)
             item["category_id"] = self.category_id
-
+            item["rank"] = index + 1
             yield item

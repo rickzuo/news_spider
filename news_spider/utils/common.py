@@ -16,3 +16,5 @@ def get_category_by_name(name):
         return 7
     elif name == "weibo":
         return 5
+    elif name == "pengpai":
+        return 8

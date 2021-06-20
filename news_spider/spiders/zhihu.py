@@ -26,7 +26,7 @@ class ZhihuSpider(scrapy.Spider):
         js_loads = json.loads(js_init)
         hot_list = js_loads['initialState']['topstory']['hotList']
 
-        for hot in hot_list:
+        for index, hot in enumerate(hot_list):
             item = ZhihuItem()
             target = hot["target"]
             title = target["titleArea"]["text"]
@@ -35,9 +35,8 @@ class ZhihuSpider(scrapy.Spider):
             url = target["link"]["url"]
 
             item["title"] = title
-            item["hot_val"] = hot_val.replace(" ","")
+            item["hot_val"] = hot_val.replace(" ", "")
             item["url"] = url
             item["category_id"] = self.category_id
-
+            item["rank"] = index + 1
             yield item
-

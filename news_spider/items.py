@@ -11,6 +11,7 @@ class NewsSpiderBaseItem(scrapy.Item):
     title = Field()
     url = Field()
     hot_val = Field()
+    rank = Field()
     category_id = Field()
 
 
@@ -23,4 +24,7 @@ class WeiboItem(NewsSpiderBaseItem):
 
 
 class ZhihuItem(NewsSpiderBaseItem):
+    pass
+
+class PengPaiItem(NewsSpiderBaseItem):
     pass

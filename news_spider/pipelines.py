@@ -80,6 +80,8 @@ class MysqlDbPipeline(object):
         self.conn.commit()
 
     def process_item(self, item, spider):
+        if not item:
+            return
         title = item.get("title", "")
         url = item.get("url", "")
         hot_val = item.get("hot_val", "")

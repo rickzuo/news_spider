@@ -13,7 +13,7 @@ class WeiboSpider(scrapy.Spider):
     def parse(self, response):
         tbody = response.xpath("//div[@id='pl_top_realtimehot']/table/tbody")
         tr_list = tbody.xpath("./tr")
-        for tr in tr_list:
+        for index, tr in enumerate(tr_list):
             item = WeiboItem()
             td_list = tr.xpath("./td")
             if len(td_list) <= 1:
@@ -26,4 +26,5 @@ class WeiboSpider(scrapy.Spider):
             item["title"] = td_title
             item["hot_val"] = hot_val
             item["category_id"] = self.category_id
+            item["rank"] = index + 1
             yield item
