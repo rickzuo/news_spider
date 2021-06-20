@@ -56,27 +56,27 @@ class MysqlDbPipeline(object):
         self.cur.execute(sql, (title,))
         return self.cur.fetchone()
 
-    def update_or_create(self, title, url, hot_val, category_id):
+    def update_or_create(self, title, url, hot_val, category_id,rank):
         instance = self.get_by_title(title)
         if instance:
             if instance["hot_val"] == hot_val and instance["url"] == url:
                 return
-            self.update(title, url,hot_val)
+            self.update(title, url,hot_val,rank)
         else:
-            self.create(title, url, hot_val, category_id)
+            self.create(title, url, hot_val, category_id,rank)
 
-    def update(self, title, url, hot_val):
-        sql = f"update {self.tb_news_name} set url = %s,hot_val = %s,updated_date = %s where title = %s "
+    def update(self, title, url, hot_val,rank):
+        sql = f"update {self.tb_news_name} set url = %s,hot_val = %s,updated_date = %s,rank = %s where title = %s "
         updated_date = datetime.now()
-        self.cur.execute(sql, (url, hot_val, updated_date, title))
+        self.cur.execute(sql, (url, hot_val, updated_date,rank, title))
         self.conn.commit()
 
-    def create(self, title, url, hot_val, category_id):
-        sql = f"insert into {self.tb_news_name}(title, url, hot_val,created_date,updated_date,category_id) " \
+    def create(self, title, url, hot_val, category_id,rank):
+        sql = f"insert into {self.tb_news_name}(title, url, hot_val,created_date,updated_date,category_id,rank) " \
               "VALUES (%s, %s, %s,%s,%s,%s)"
         created_date = datetime.now()
         updated_date = datetime.now()
-        self.cur.execute(sql, (title, url, hot_val, created_date, updated_date, category_id))
+        self.cur.execute(sql, (title, url, hot_val, created_date, updated_date, category_id,rank))
         self.conn.commit()
 
     def process_item(self, item, spider):
@@ -85,5 +85,6 @@ class MysqlDbPipeline(object):
         title = item.get("title", "")
         url = item.get("url", "")
         hot_val = item.get("hot_val", "")
+        rank = item.get("rank", 1)
         category_id = item.get("category_id", 1)
-        self.update_or_create(title, url, hot_val, category_id)
+        self.update_or_create(title, url, hot_val, category_id,rank)
