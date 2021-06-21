@@ -31,3 +31,7 @@ class PengPaiItem(NewsSpiderBaseItem):
 
 class TxItem(NewsSpiderBaseItem):
     pass
+
+
+class WangYiItem(NewsSpiderBaseItem):
+    pass

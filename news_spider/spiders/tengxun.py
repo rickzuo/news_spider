@@ -17,7 +17,7 @@ class TengxunSpider(scrapy.Spider):
             return
         idlist = json_list["idlist"][0]
         news_list = idlist["newslist"]
-        for new in news_list:
+        for index,new in enumerate(news_list):
             item = TxItem()
             abstract = new["abstract"]
             source = new["source"]
@@ -27,6 +27,7 @@ class TengxunSpider(scrapy.Spider):
             item["title"]= title
             item["url"]= surl
             item["hot_val"]= source
+            item["rank"] = index + 1
             item["category_id"] = self.category_id
             yield item
 
