@@ -35,3 +35,7 @@ class TxItem(NewsSpiderBaseItem):
 
 class WangYiItem(NewsSpiderBaseItem):
     pass
+
+
+class ToutiaoItem(NewsSpiderBaseItem):
+    pass
