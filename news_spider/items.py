@@ -28,3 +28,6 @@ class ZhihuItem(NewsSpiderBaseItem):
 
 class PengPaiItem(NewsSpiderBaseItem):
     pass
+
+class TxItem(NewsSpiderBaseItem):
+    pass

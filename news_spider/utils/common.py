@@ -18,3 +18,9 @@ def get_category_by_name(name):
         return 5
     elif name == "pengpai":
         return 8
+    elif name == "tentxun":
+        return 9
+    elif name == "wangyi":
+        return 16
+    elif name == "toutiao":
+        return 17
