@@ -33,3 +33,6 @@ def get_category_by_name(name):
         return 20
     elif name == "ithome":
         return 19
+    elif name == "cnbeta":
+        return 22
+

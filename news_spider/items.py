@@ -51,3 +51,7 @@ class IthomeItem(NewsSpiderBaseItem):
 
 class HuxiuItem(NewsSpiderBaseItem):
     pass
+
+
+class CnbetaItem(NewsSpiderBaseItem):
+    pass
