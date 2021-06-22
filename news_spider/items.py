@@ -48,3 +48,6 @@ class SspaiItem(NewsSpiderBaseItem):
 
 class IthomeItem(NewsSpiderBaseItem):
     pass
+
+class HuxiuItem(NewsSpiderBaseItem):
+    pass
