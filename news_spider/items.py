@@ -42,3 +42,6 @@ class ToutiaoItem(NewsSpiderBaseItem):
 
 class Kr36Item(NewsSpiderBaseItem):
     pass
+
+class SspaiItem(NewsSpiderBaseItem):
+    pass

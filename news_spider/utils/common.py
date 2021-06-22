@@ -27,3 +27,9 @@ def get_category_by_name(name):
         return 17
     elif name == "36kr":
         return 18
+    elif name == "sspai":
+        return 21
+    elif name == "huxiu":
+        return 20
+    elif name == "ithome":
+        return 19
