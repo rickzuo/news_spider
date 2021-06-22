@@ -45,3 +45,6 @@ class Kr36Item(NewsSpiderBaseItem):
 
 class SspaiItem(NewsSpiderBaseItem):
     pass
+
+class IthomeItem(NewsSpiderBaseItem):
+    pass
