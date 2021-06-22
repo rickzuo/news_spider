@@ -39,3 +39,6 @@ class WangYiItem(NewsSpiderBaseItem):
 
 class ToutiaoItem(NewsSpiderBaseItem):
     pass
+
+class Kr36Item(NewsSpiderBaseItem):
+    pass

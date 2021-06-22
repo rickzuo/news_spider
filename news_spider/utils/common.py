@@ -9,6 +9,7 @@ def parse_list_item(data):
         return ""
     return data[0].strip()
 
+
 def get_category_by_name(name):
     if name == "baidu":
         return 2
@@ -24,3 +25,5 @@ def get_category_by_name(name):
         return 16
     elif name == "toutiao":
         return 17
+    elif name == "36kr":
+        return 18
