@@ -35,4 +35,11 @@ def get_category_by_name(name):
         return 19
     elif name == "cnbeta":
         return 22
-
+    elif name == "xueqiu":
+        return 23
+    elif name == "wallstreetcn":
+        return 24
+    elif name == "yicai":
+        return 25
+    elif name == "gelonghui":
+        return 26

@@ -5,5 +5,5 @@
 # @Software: PyCharm
 from scrapy.cmdline import execute
 
-execute(['scrapy', 'crawl', 'cnbeta'])
+execute(['scrapy', 'crawl', 'xueqiu'])
 # execute(['scrapy', 'crawl_all'])

@@ -55,3 +55,7 @@ class HuxiuItem(NewsSpiderBaseItem):
 
 class CnbetaItem(NewsSpiderBaseItem):
     pass
+
+
+class XueqiuItem(NewsSpiderBaseItem):
+    pass
