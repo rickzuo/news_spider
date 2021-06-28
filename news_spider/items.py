@@ -65,3 +65,6 @@ class WallstreetcnItem(NewsSpiderBaseItem):
 
 class SmzdmItem(NewsSpiderBaseItem):
     pass
+
+class JuejinItem(NewsSpiderBaseItem):
+    pass
