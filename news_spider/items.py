@@ -62,3 +62,6 @@ class XueqiuItem(NewsSpiderBaseItem):
 
 class WallstreetcnItem(NewsSpiderBaseItem):
     pass
+
+class SmzdmItem(NewsSpiderBaseItem):
+    pass
