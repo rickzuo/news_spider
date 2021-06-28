@@ -21,10 +21,10 @@ class SmzdmSpider(scrapy.Spider):
             title = data["article_title"]
             url = data["article_url"]
             article_rating = data["article_rating"]
-            # article_price = data["article_price"]
+            article_price = data["article_price"]
             article_comment = data["article_comment"]
             # article_content_all = data["article_content_all"]
-            item["title"] = title
+            item["title"] = f"{title},{article_price}"
             item["url"] = url
             item["hot_val"] = f"评论数:{article_comment}"
             item["category_id"] = self.category_id
