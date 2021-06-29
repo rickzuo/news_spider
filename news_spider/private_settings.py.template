@@ -4,6 +4,7 @@
 # @File    : private_settings.py
 # @Software: PyCharm
 
+SCRAPYD_DEBUG = False
 MYSQL_DB_HOST = "localhost"
 MYSQL_DB_NAME = ""
 MYSQL_DB_PORT = 3306
