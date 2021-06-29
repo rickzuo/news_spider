@@ -46,15 +46,16 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-   # 'news_spider.middlewares.RotateUserAgentMiddleware': 400,
-}
+#SPIDER_MIDDLEWARES = {
+#    'news_spider.middlewares.NewsSpiderSpiderMiddleware': 543,
+#}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'news_spider.middlewares.NewsSpiderDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    'news_spider.middlewares.HttpProxyMiddleware.StaticProxyMiddleware': 543,
+    # 'news_spider.middlewares.NewsSpiderDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -99,7 +100,7 @@ MYSQL_DB_PORT = private_settings.MYSQL_DB_PORT
 MYSQL_DB_USER = private_settings.MYSQL_DB_USER
 MYSQL_DB_PASSWORD = private_settings.MYSQL_DB_PASSWORD
 
-COMMANDS_MODULE  = 'news_spider.utils'   # 自己的爬虫名称
+COMMANDS_MODULE = 'news_spider.utils'  # 自己的爬虫名称
 
 # 文件及路径，log目录需要先建好
 today = datetime.now()
