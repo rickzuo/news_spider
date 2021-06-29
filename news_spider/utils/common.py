@@ -19,7 +19,7 @@ def get_category_by_name(name):
         return 5
     elif name == "pengpai":
         return 8
-    elif name == "tentxun":
+    elif name == "tengxun":
         return 9
     elif name == "wangyi":
         return 16
@@ -47,3 +47,6 @@ def get_category_by_name(name):
         return 27
     elif name == "juejin":
         return 28
+    elif name == "v2ex":
+        return 29
+

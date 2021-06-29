@@ -46,9 +46,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'news_spider.middlewares.NewsSpiderSpiderMiddleware': 543,
-# }
+SPIDER_MIDDLEWARES = {
+   # 'news_spider.middlewares.RotateUserAgentMiddleware': 400,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
@@ -109,3 +109,5 @@ log_file_path = "logs/scrapy_{}_{}_{}.log".format(today.year, today.month, today
 LOG_LEVEL = 'DEBUG'
 if not private_settings.SCRAPYD_DEBUG:
     LOG_FILE = log_file_path
+
+DOWNLOAD_TIMEOUT = 15

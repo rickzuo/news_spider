@@ -68,3 +68,6 @@ class SmzdmItem(NewsSpiderBaseItem):
 
 class JuejinItem(NewsSpiderBaseItem):
     pass
+
+class V2exItem(NewsSpiderBaseItem):
+    pass
