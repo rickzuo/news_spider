@@ -27,7 +27,12 @@ def validate_item(item):
 
     if 'url' not in item:
         print("Missing url in %s" % item['title'])
-        logging.error("Missing current_price in %s" % item['title'])
+        logging.error("Missing url in %s" % item['title'])
+        return False
+
+    if "javascript:void(0)" in item["url"]:
+        print("Invalid url in %s" % item['url'])
+        logging.error("Invalid url in %s" % item['title'])
         return False
 
     return True
