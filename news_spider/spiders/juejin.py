@@ -9,7 +9,7 @@ from news_spider.utils.common import get_category_by_name
 class JuejinSpider(scrapy.Spider):
     name = 'juejin'
     allowed_domains = ['juejin.cn']
-    start_urls = ['https://api.juejin.cn/recommend_api/v1/article/recommend_all_feed/']
+    start_urls = ['https://api.juejin.cn/recommend_api/v1/article/recommend_all_feed/',"https://api.juejin.cn/recommend_api/v1/article/recommend_cate_tag_feed"]
     category_id = get_category_by_name(name)
 
     def start_requests(self):
@@ -20,7 +20,7 @@ class JuejinSpider(scrapy.Spider):
                 "or empty (but found 'start_url' attribute instead, "
                 "did you miss an 's'?)")
 
-        post_data = {"id_type": 2, "client_type": 2608, "sort_type": 3, "cursor": "0", "limit": 20}
+        post_data = {"id_type": 2, "client_type": 2608, "sort_type": 3, "cursor": "0", "limit": 40,"cate_id":"6809637769959178254"}
         for url in self.start_urls:
             yield scrapy.Request(url, method='POST',
                                  callback=self.parse,
@@ -31,26 +31,28 @@ class JuejinSpider(scrapy.Spider):
         json_ret = response.json()
         json_data = json_ret["data"]
         for item_data in json_data:
-            item_type = item_data["item_type"]
-            if item_type != 2:
-                continue
             item = JuejinItem()
-            item_info = item_data["item_info"]
+            if "item_type"  in item_data:
+                item_type = item_data["item_type"]
+                if item_type != 2:
+                    continue
+                item_info = item_data["item_info"]
+            else:
+                item_info = item_data
             category = item_info["category"]
             article_id = item_info["article_id"]
             category_name = category["category_name"]
             article_info = item_info["article_info"]
-
-            # author_name = item_info["author_name"]
-            hot_val = article_info["view_count"]
+            author_name = item_info["author_user_info"]["user_name"]
+            view_count = article_info["view_count"]
             title = article_info['title']
             title = f"({category_name}){title}"
             url = f"https://juejin.cn/post/{article_id}"
             rtime = article_info["rtime"]
             item["title"] = title
             item["url"] = url
-            item["hot_val"] = hot_val
-            item["rank"] = rtime
+            item["hot_val"] = author_name
+            item["rank"] = view_count
             item["category_id"] = self.category_id
 
             yield item
