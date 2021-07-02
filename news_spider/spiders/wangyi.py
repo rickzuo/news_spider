@@ -17,17 +17,16 @@ class WangyiSpider(scrapy.Spider):
         if code != 0:
             return
         items = news_list["data"]["items"]
-        for index, new in enumerate(items):
+        for new in items:
             item = WangYiItem()
             source = new["source"]
             title = new["title"]
             hot_value = new["hotValue"]
-            source = new["source"]
             contentId = new["contentId"]
             url = self.base_url.format(contentId)
             item["title"] = title
             item["url"] = url
             item["hot_val"] = hot_value
-            item["rank"] = index + 1
+            item["rank"] = hot_value
             item["category_id"] = self.category_id
             yield item
