@@ -26,15 +26,15 @@ class HuxiuSpider(scrapy.Spider):
         script_json = json.loads(script_data)
         articles = script_json["article"]
         data_list = articles["articles"]["dataList"]
-        for index,data in enumerate(data_list):
+        for data in data_list:
             item = HuxiuItem()
             title = data["title"]
             username = data["user_info"]["username"]
             share_url = data["share_url"]
+            page_sort = data["pageSort"]
             item["title"] = title
             item["hot_val"] = username
             item["url"] = share_url
-            item["rank"] = index + 1
+            item["rank"] = page_sort
             item["category_id"] = self.category_id
-
             yield item
