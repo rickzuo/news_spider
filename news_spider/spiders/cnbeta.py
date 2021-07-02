@@ -1,3 +1,5 @@
+import re
+
 import scrapy
 
 from news_spider.items import CnbetaItem
@@ -12,8 +14,7 @@ class CnbetaSpider(scrapy.Spider):
 
     def parse(self, response):
         news_list = response.xpath("//div[@class='item']")
-        print("news_list:", news_list)
-        for index, new in enumerate(news_list):
+        for new in news_list:
             item = CnbetaItem()
             href = new.xpath("./dl/dt/a/@href").extract()
             title = new.xpath("./dl/dt/a/text()").extract()
@@ -23,10 +24,13 @@ class CnbetaSpider(scrapy.Spider):
                 url = url.replace("//", "")
             title = parse_list_item(title)
             hot_val = parse_list_item(hot_val)
-
             item["title"] = title
             item["hot_val"] = hot_val
+            match = re.findall(".*?(\d+).*?", hot_val, re.S)
+            rank = 0
+            if match:
+                rank = match[0]
             item["url"] = url
-            item["rank"] = index + 1
+            item["rank"] = rank
             item["category_id"] = self.category_id
             yield item
