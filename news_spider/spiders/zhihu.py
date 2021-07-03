@@ -34,9 +34,11 @@ class ZhihuSpider(scrapy.Spider):
             img = target["imageArea"]["url"]
             url = target["link"]["url"]
 
+            hot_val_cn = hot_val.replace(" ", "")
+            hot_val_num = int(hot_val_cn.replace("万热度", "")) * 10000
             item["title"] = title
-            item["hot_val"] = hot_val.replace(" ", "")
+            item["hot_val"] = hot_val_cn
             item["url"] = url
             item["category_id"] = self.category_id
-            item["rank"] = index + 1
+            item["rank"] = hot_val_cn
             yield item
