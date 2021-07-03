@@ -40,5 +40,5 @@ class ZhihuSpider(scrapy.Spider):
             item["hot_val"] = hot_val_cn
             item["url"] = url
             item["category_id"] = self.category_id
-            item["rank"] = hot_val_cn
+            item["rank"] = hot_val_num
             yield item
