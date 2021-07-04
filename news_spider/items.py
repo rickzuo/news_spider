@@ -71,3 +71,6 @@ class JuejinItem(NewsSpiderBaseItem):
 
 class V2exItem(NewsSpiderBaseItem):
     pass
+
+class GelonghuiItem(NewsSpiderBaseItem):
+    pass
