@@ -13,7 +13,7 @@ class WallstreetcnSpider(scrapy.Spider):
     def parse(self, response):
         json_data = response.json()
         res_list = json_data["data"]["items"]
-        for index,res in enumerate(res_list):
+        for res in res_list:
             item = WallstreetcnItem()
             resource = res["resource"]
             title = resource["title"]
@@ -23,7 +23,7 @@ class WallstreetcnSpider(scrapy.Spider):
             item["title"] = title
             item["url"] = url
             item["hot_val"] = hot_val
-            item["rank"] = index + 1
+            item["rank"] = display_time
             item["category_id"] = self.category_id
             yield item
 
