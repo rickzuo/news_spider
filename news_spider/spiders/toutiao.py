@@ -20,16 +20,17 @@ class ToutiaoSpider(scrapy.Spider):
             logging.error("crawl toutiao fail:", news_list)
             return
         nlist = news_list["data"]
-        for index, new in enumerate(nlist):
+        for new in nlist:
             item = ToutiaoItem()
             title = new["title"]
             url = new["url"]
             hot_val = new["source"]
             abstract = new["Abstract"]
+            publish_time = new["publish_time"]
 
             item["title"] = title
             item["url"] = url
             item["hot_val"] = hot_val
-            item["rank"] = index + 1
+            item["rank"] = publish_time
             item["category_id"] = self.category_id
             yield item
