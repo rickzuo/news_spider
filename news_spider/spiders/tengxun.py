@@ -22,12 +22,14 @@ class TengxunSpider(scrapy.Spider):
             abstract = new["abstract"]
             source = new["source"]
             orig_url = new["origUrl"]
+            timestamp = new["timestamp"]
+
             surl = new["surl"]
             title = new["title"]
             item["title"]= title
             item["url"]= surl
             item["hot_val"]= source
-            item["rank"] = index + 1
+            item["rank"] = timestamp
             item["category_id"] = self.category_id
             yield item
 
