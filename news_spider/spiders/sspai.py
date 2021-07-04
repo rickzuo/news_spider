@@ -14,18 +14,18 @@ class SspaiSpider(scrapy.Spider):
     def parse(self, response):
         json_data = response.json()
         news_list = json_data["data"]
-        for index, new in enumerate(news_list):
+        for data in news_list:
             item = SspaiItem()
-            title = new["title"]
-            id = new["id"]
+            title = data["title"]
+            id = data["id"]
             url = f"https://sspai.com/post/{id}"
-            author = new["author"]
+            author = data["author"]
+            modify_time = data["modify_time"]
             if author:
                 hot_val = author["nickname"]
                 item["hot_val"] = hot_val
-
             item["title"] = title
             item["url"] = url
-            item["rank"] = index + 1
+            item["rank"] = modify_time
             item["category_id"] = self.category_id
             yield item
