@@ -74,3 +74,6 @@ class V2exItem(NewsSpiderBaseItem):
 
 class GelonghuiItem(NewsSpiderBaseItem):
     pass
+
+class YicaiItem(NewsSpiderBaseItem):
+    pass
