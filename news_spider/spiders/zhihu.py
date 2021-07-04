@@ -26,14 +26,13 @@ class ZhihuSpider(scrapy.Spider):
         js_loads = json.loads(js_init)
         hot_list = js_loads['initialState']['topstory']['hotList']
 
-        for index, hot in enumerate(hot_list):
+        for hot_data in hot_list:
             item = ZhihuItem()
-            target = hot["target"]
+            target = hot_data["target"]
             title = target["titleArea"]["text"]
             hot_val = target["metricsArea"]["text"]
             img = target["imageArea"]["url"]
             url = target["link"]["url"]
-
             hot_val_cn = hot_val.replace(" ", "")
             hot_val_num = int(hot_val_cn.replace("万热度", "")) * 10000
             item["title"] = title
