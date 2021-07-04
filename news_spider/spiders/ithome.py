@@ -1,3 +1,5 @@
+import datetime
+
 import scrapy
 
 from news_spider.items import IthomeItem
@@ -12,12 +14,12 @@ class IthomeSpider(scrapy.Spider):
 
     def parse(self, response):
         news_list = response.xpath("//div[@id='nnews']//li[@class='n']")
-        for index,new in enumerate(news_list):
+        for data in news_list:
             item = IthomeItem()
 
-            href = new.xpath("./a/@href").extract()
-            title = new.xpath("./a/text()").extract()
-            create_time = new.xpath("./b/text()").extract()
+            href = data.xpath("./a/@href").extract()
+            title = data.xpath("./a/text()").extract()
+            create_time = data.xpath("./b/text()").extract()
 
             url = parse_list_item(href)
             title = parse_list_item(title)
@@ -25,8 +27,11 @@ class IthomeSpider(scrapy.Spider):
 
             item["title"] = title
             item["hot_val"] = hot_val
+            today = datetime.date.today()
+            create_date = datetime.datetime.strptime(f"{today} {hot_val}", '%Y-%m-%d %H:%M')
+            ctime = int(create_date.timestamp())
             item["url"] = url
-            item["rank"] = index + 1
+            item["rank"] = ctime
             item["category_id"]  = self.category_id
 
             yield item
